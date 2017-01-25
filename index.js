@@ -4,7 +4,7 @@ var mybot = new Discord.Client();
 
 mybot.on("message", function(message) {
 	if (message.server.id === process.env.DISCORD_SERVER){
-		if (/^@everyone$/i.test(message.content)){
+		if (/^@everyone/i.test(message.content)){
 		    var members = message.server.members;
 		    var memberIds = [];
 		    var msgs = [""];
@@ -21,8 +21,8 @@ mybot.on("message", function(message) {
 		    	}
 			});
 			msgs.forEach(function(msg){
-				// X is filler
-				mybot.sendMessage(message,msg+"X".repeat(2000-msg.length),function(error,message){
+				// newline character and X are fillers
+				mybot.sendMessage(message,msg+"\n".repeat(2000-msg.length).replace(/\W$/,"X"),function(error,message){
 					console.log(error);
 					mybot.deleteMessage(message);
 				});
